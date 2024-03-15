@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Posts</title>
+</head>
+<body>
+    <h1>{{ user.username }}'s Comments</h1>
+    <ul>
+        {% for comments in comment %}
+            <li>{{ comments.content }}</li>
+            <p>{{ post.content }}</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

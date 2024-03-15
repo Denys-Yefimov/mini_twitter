@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="fw-light">{{ post.title }}</h1>
+            <p class="lead text-body-secondary">{{ post.user.username }}</p>
+            <p class="lead text-body-secondary">{{ post.created_at }}</p>
+            <p class="lead text-body-secondary">{{ post.content }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Кнопка для добавления комментария -->
+<div class="text-center">
+    <a href="{% url 'add_comment' post_id=post.pk %}" class="btn btn-primary">Написать комментарий</a>
+</div>
+
+<!-- Здесь можно добавить блок для отображения комментариев -->
+<div class="container mt-5">
+    <h2>Комментарии</h2>
+    {% for comment in comments %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ comment.user.username }}</h5>
+            <p class="card-text">{{ comment.content }}</p>
+        </div>
+    </div>
+    {% empty %}
+    <p>Нет комментариев для отображения.</p>
+    {% endfor %}
+</div>
+{% endblock %}
