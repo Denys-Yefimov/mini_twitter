@@ -1,19 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comment
 from users.models import User
-
+from django.views.generic import ListView
 from posts.forms import PostForm, CommentForm
 
-def post_list(request): # просмотр всех постов
-    posts = Post.objects.all()
-    users = User.objects.all()
-    context = {'posts': posts, 'users': users}
-    return render(request, 'post/posts_list.html', context)
 
-def comment_list(request): # просмотр всех коментов
-    comments = Comment.objects.all()
-    context = {'comments': comments}
-    return render(request, 'comment/comment_list.html', context)
+class PostListView(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'post/posts_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context =super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+        return context
+
+class CommentListView(ListView):
+    model = Comment
+    context_object_name = 'comments'
+    template_name = 'comment/comment_list.html'
 
 
 def user_comment(request, username):    # комент конкретного пользователя
@@ -66,7 +71,16 @@ def add_comment(request, post_id):  # добавление комента к п�
     return render(request, 'post/create_comment_to_post.html', {'form': form, 'post': post})
 
 
-def post_comments(request, post_id):
-    post = Post.objects.get(pk=post_id)
-    comments = post.comment_set.all()  # Получаем все комментарии для данного поста
-    return render(request, 'post_comments.html', {'post': post, 'comments': comments})
+class CommentsToPost(ListView):
+    model = Post
+    context_object_name = 'comments_to_post'
+    template_name = 'post_comments.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.all()
+        return context
+
+    def get_queryset(self):
+        posts = Post.objects.filter(post__id=self.kwargs['posts_id'])
+        return posts
