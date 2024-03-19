@@ -16,7 +16,7 @@
                     <img src="{% static 'img/profile_picture.jpg' %}" class="mr-3 rounded-circle" width="64" height="64" alt="Profile Image">
                     {% endif %}
                     <div class="media-body">
-                        <h5><a href="{% url 'user_posts' user.username %}" class="mt- text-dark text-decoration-none">{{ user.username }}</h5></a>
+                        <h5><a href="{% url 'user_posts' user.pk %}" class="mt- text-dark text-decoration-none">{{ user.username }}</h5></a>
 
                         <p>Date of Birth: {{ user.date_of_birth }}</p>
                     </div>

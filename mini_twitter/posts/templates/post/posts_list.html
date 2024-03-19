@@ -19,7 +19,7 @@
                 <h1><a href="{% url 'user-list' %}" class="mt- text-dark text-decoration-none">Users</h1></a>
                 <div class="list-group">
                     {% for user in users %}
-                        <a href="{% url 'user_posts' user.username %}" class="list-group-item list-group-item-action">{{ user.username }}</a>
+                        <a href="{% url 'user_posts' user.pk %}" class="list-group-item list-group-item-action">{{ user.username }}</a>
                     {% endfor %}
                 </div>
             </div>

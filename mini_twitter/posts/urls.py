@@ -1,16 +1,14 @@
 from django.urls import path
-from .views import (PostListView, CommentListView, user_comment,
-                    user_posts, add_post, post_detail, add_comment, CommentsToPost)
+from .views import (PostListView, CommentListView,
+                    AddPostView, PostDetailView, AddCommentView, CommentsToPost)
 
 
 urlpatterns = [
     path('', PostListView.as_view(), name='post-list'),
     path('comment', CommentListView.as_view(), name='comment-list'),
-    path('comment/<str:username>/', user_comment, name='user-comment'),
-    path('add-post/', add_post, name='add_post'),
-    path('add-comment/<int:post_id>/', add_comment, name='add_comment'),
-    path('user/<str:username>/', user_posts, name='user_posts'),
-    path('post-detail/<int:post_id>/', post_detail, name='post_detail'),
+    path('add-post/', AddPostView.as_view(), name='add_post'),
+    path('add-comment/<int:post_id>/', AddCommentView.as_view(), name='add_comment'),
+    path('post-detail/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('post/<int:post_id>/comments/', CommentsToPost.as_view(), name='post_comments'),
 ]
 

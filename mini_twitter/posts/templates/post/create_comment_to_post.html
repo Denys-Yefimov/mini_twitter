@@ -15,7 +15,8 @@
         <div class="row">
             <div class="col-md-7 col-lg-8 mx-auto">
                 <h4 class="mb-3">Деталі Коммента</h4>
-                <form class="needs-validation" novalidate method="post" action="{% url 'add_comment' post_id=post.pk %}" enctype="multipart/form-data">
+               <form class="needs-validation" novalidate method="post" action="{% url 'add_comment' post_id=post_id %}" enctype="multipart/form-data">
+
                     {% csrf_token %}
                     {% for field in form %}
                     <div class="row g-3">
