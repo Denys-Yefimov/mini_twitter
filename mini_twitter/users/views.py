@@ -24,3 +24,20 @@ class UserDetailView(DetailView):
         posts = Post.objects.filter(user=user)
         context['posts'] = posts
         return context
+
+class RegisterView(CreateView):
+    form_class = CustomUserCreateForm
+    success_url = reverse_lazy('login')
+    template_name = 'user/register.html'
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('post-list')
+    else:
+        form = LoginForm()
+        return render(request, 'user/login.html', context={'form': form})

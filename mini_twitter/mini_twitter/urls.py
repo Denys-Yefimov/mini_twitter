@@ -28,7 +28,7 @@ urlpatterns = [
     path('', include('posts.urls')),
     path('twitter/', include("twitter.urls")),
     path('users/', include('users.urls')),
-    path('auth/', include("users.urls")),
+    path('auth/', include("custom_auth.urls")),
 
 ]
 
