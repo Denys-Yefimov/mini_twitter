@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'twitter.apps.TwitterConfig',
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'custom_auth.apps.CustomAuthConfig',
     'bootstrap4',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -51,7 +53,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    '192.168.179.20',
+]
+
+AUTH_USER_MODEL = 'custom_auth.CustomUser'
+
+LOGOUT_REDIRECT_URL = "/"
+
+
+
+
 
 ROOT_URLCONF = 'mini_twitter.urls'
 

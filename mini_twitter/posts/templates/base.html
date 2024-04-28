@@ -176,17 +176,21 @@
             {% if user.is_staff %}
             <a href="{% url 'add_post' %}" class="btn btn-outline-info my-2 my-sm-0 ms-auto me-4">Додати пост</a>
             {% endif %}
-            <div>
+           <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}
-                <span class="me-3 text-white">Вітаю, {{ user.username }}</span>
+                    <span class="me-3 text-white">Вітаю, {{ user.username }}</span>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger my-2 my-sm-0">Выход</button>
+                    </form>
                 {% else %}
-                <a href="#" class="btn btn-outline-info my-2 my-sm-0 me-2">Увійти</a>
-                <a href="#" class="btn btn-outline-info my-2 my-sm-0">Зареєструватися</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-info my-2 my-sm-0 me-2">Увійти</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-info my-2 my-sm-0">Зареєструватися</a>
                 {% endif %}
                 <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-            </div>
+           </div>
         </div>
     </div>
 </div>

@@ -1,31 +1,29 @@
 {% extends "base.html" %}
 
-{% load static%}
-
 {% block content %}
-<div class="row">
-    <div class="col-md-8 offset-md-2">
-        <h1 class="my-4">List of Users</h1>
-        <ul class="list-group">
-            {% for user in object_list %}
-            <li class="list-group-item">
-                <div class="media">
-                    {% if user.profile_picture %}
-                    <img src="{{ user.profile_picture.url }}" class="mr-3 rounded-circle" width="64" height="64" alt="Profile Image">
-                    {% else %}
-                    <img src="{% static 'img/profile_picture.jpg' %}" class="mr-3 rounded-circle" width="64" height="64" alt="Profile Image">
-                    {% endif %}
-                    <div class="media-body">
-                        <h5><a href="{% url 'user_posts' user.pk %}" class="mt- text-dark text-decoration-none">{{ user.username }}</h5></a>
-
-                        <p>Date of Birth: {{ user.date_of_birth }}</p>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">List of Users</h1>
+            <ul class="list-group">
+                {% for user in object_list %}
+                <li class="list-group-item">
+                    <div class="media">
+                        {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" class="mr-3 rounded-circle" width="64" height="64" alt="Profile Image">
+                        {% else %}
+                        <img src="{% static 'img/profile_picture.jpg' %}" class="mr-3 rounded-circle" width="64" height="64" alt="Profile Image">
+                        {% endif %}
+                        <div class="media-body">
+                            <h5><a href="{% url 'user_posts' user.pk %}" class="mt- text-dark text-decoration-none">{{ user.username }}</a></h5>
+                            <p>Date of Birth: {{ user.date_of_birth }}</p>
+                        </div>
                     </div>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
 {% endblock %}
-
 

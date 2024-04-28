@@ -1,10 +1,10 @@
 from django.db import models
-from users.models import User
 from django.urls import reverse
+from custom_auth.models import CustomUser  # Импортируем модель CustomUser из вашего приложения users
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,11 +16,8 @@ class Post(models.Model):
         return reverse('post_detail', kwargs={'pk': self.pk})
 
 
-
-
-
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -30,6 +27,7 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'pk': self.pk})
+
 
 
 
