@@ -19,6 +19,14 @@ class CustomUserCreateForm(UserCreationForm):
         # Устанавливаем менеджер
         self.fields['username'].queryset = CustomUser.objects.all()
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.date_of_birth = self.cleaned_data['birth_day']
+        if commit:
+            user.save()
+        return user
+
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
